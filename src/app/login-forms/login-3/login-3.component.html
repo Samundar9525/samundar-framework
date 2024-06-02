@@ -1,0 +1,117 @@
+<div class="main">
+    <section class="signup" *ngIf="!isLoginVisible">
+      <div class="container">
+        <div class="signup-content">
+          <div class="signup-form">
+            <h2 class="form-title">Sign up</h2>
+            <form [formGroup]="signupForm" (ngSubmit)="onsignupSubmit()" id="register-form">
+              <div class="form-group">
+                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <input type="text" formControlName="name" id="name" placeholder="Your Name" />
+                <div *ngIf="signupForm.get('name')?.invalid && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">
+                  <div *ngIf="signupForm.get('name')?.errors?.['required']" class="error-msg">Name is required.</div>
+                  <div *ngIf="signupForm.get('name')?.errors?.['minlength']" class="error-msg">Name must be at least 3 characters long.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                <input type="email" formControlName="email" id="email" placeholder="Your Email" />
+                <div *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+                  <div *ngIf="signupForm.get('email')?.errors?.['required']"class="error-msg">Email is required.</div>
+                  <div *ngIf="signupForm.get('email')?.errors?.['email']" class="error-msg">Invalid email address.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                <input type="password" formControlName="pass" id="pass" placeholder="Password" />
+                <div *ngIf="signupForm.get('pass')?.invalid && (signupForm.get('pass')?.dirty || signupForm.get('pass')?.touched)">
+                  <div *ngIf="signupForm.get('pass')?.errors?.['required']" class="error-msg">Password is required.</div>
+                  <div *ngIf="signupForm.get('pass')?.errors?.['minlength']" class="error-msg">Password must be at least 6 characters long.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="re_pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                <input type="password" formControlName="re_pass" id="re_pass" placeholder="Repeat your password" />
+                <div *ngIf="signupForm.get('re_pass')?.invalid && (signupForm.get('re_pass')?.dirty || signupForm.get('re_pass')?.touched)">
+                  <div *ngIf="signupForm.get('re_pass')?.errors?.['required']" class="error-msg">Password confirmation is required.</div>
+                  <div *ngIf="signupForm.get('re_pass')?.errors?.['minlength']" class="error-msg">Password confirmation must be at least 6 characters long.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" formControlName="agreeTerm" id="agree-term" class="agree-term" />
+                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in
+                  <a class="term-service" (click)="termServicesClicked()">Terms of service</a></label>
+                <div *ngIf="signupForm.get('agreeTerm')?.invalid && (signupForm.get('agreeTerm')?.dirty || signupForm.get('agreeTerm')?.touched)">
+                  <div *ngIf="signupForm.get('agreeTerm')?.errors?.['requiredTrue']" class="error-msg">You must agree to the terms of service.</div>
+                </div>
+              </div>
+              <div class="form-group form-button">
+                <input type="submit" [disabled]="signupForm.invalid" class="form-submit" value="Register" />
+              </div>
+            </form>
+          </div>
+          <div class="signup-image">
+            <figure>
+              <img src="../../../assets/signup-image.jpg" alt="sign up image" />
+            </figure>
+            <a class="signup-image-link" (click)="isLoginVisible = true">I am already member</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <section class="sign-in" *ngIf="isLoginVisible">
+        <div class="container">
+          <div class="signin-content">
+            <div class="signin-image">
+              <figure>
+                <img src="../../../assets/signin-image.jpg" alt="sign up image" />
+              </figure>
+              <a class="signup-image-link" (click)="isLoginVisible = false">New here? Create an account</a>
+            </div>
+            <div class="signin-form">
+              <h2 class="form-title">Sign in</h2>
+              <form [formGroup]="signinForm" (ngSubmit)="onloginSubmit()" id="login-form">
+                <div class="form-group">
+                  <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                  <input type="text" formControlName="your_name" id="your_name" placeholder="Your Name" />
+                  <div *ngIf="signinForm.get('your_name')?.invalid && (signinForm.get('your_name')?.dirty || signinForm.get('your_name')?.touched)">
+                    <div *ngIf="signinForm.get('your_name')?.errors?.['required']" class="error-msg">Name is required.</div>
+                    <div *ngIf="signinForm.get('your_name')?.errors?.['minlength']" class="error-msg">Name must be at least 3 characters long.</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                  <input type="password" formControlName="your_pass" id="your_pass" placeholder="Password" />
+                  <div *ngIf="signinForm.get('your_pass')?.invalid && (signinForm.get('your_pass')?.dirty || signinForm.get('your_pass')?.touched)">
+                    <div *ngIf="signinForm.get('your_pass')?.errors?.['required']" class="error-msg">Password is required.</div>
+                    <div *ngIf="signinForm.get('your_pass')?.errors?.['minlength']" class="error-msg">Password must be at least 6 characters long.</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" formControlName="rememberMe" id="remember-me" class="agree-term" />
+                  <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                </div>
+                <div class="form-group form-button">
+                  <input type="submit" [disabled]="signinForm.invalid" class="form-submit" value="Log in" />
+                </div>
+              </form>
+              <div class="social-login">
+                <span class="social-label">Or login with</span>
+                <ul class="socials">
+                  <li>
+                    <a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
